@@ -1,27 +1,19 @@
-
-
 @import "config";
 @import "demo/highlight";
 @import "demo/examples";
 
-
 .card-sponsor {
-  background: #dbe7f6 no-repeat center/100% 100%;
-  border-color: #548ed2;
+  background: var(--#{$prefix}primary-lt) no-repeat center/100% 100%;
+  border-color: var(--#{$prefix}primary);
   min-height: 316px;
 }
-
-body.no-transitions * {
-  transition: none !important;
-}
-
 
 .dropdown-menu-demo {
   display: inline-block;
   width: 100%;
   position: relative;
   top: 0;
-  margin-bottom: 1rem;
+  margin-bottom: 1rem !important;
 }
 
 .demo-icon-preview {
@@ -53,14 +45,13 @@ body.no-transitions * {
 }
 
 .demo-dividers {
-  >p {
-    opacity: .2;
+  > p {
+    opacity: 0.2;
     user-select: none;
   }
 }
 
-
-$demo-icon-size: 7rem;
+$demo-icon-size: 4rem;
 .demo-icons-list {
   display: flex;
   flex-wrap: wrap;
@@ -68,7 +59,7 @@ $demo-icon-size: 7rem;
   margin: 0 -2px -1px 0;
   list-style: none;
 
-  >* {
+  > * {
     flex: 1 0 $demo-icon-size;
   }
 }
@@ -82,11 +73,13 @@ $demo-icon-size: 7rem;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: $demo-icon-size;
+  aspect-ratio: 1;
   text-align: center;
-  padding: .5rem;
-  border-right: 1px solid $border-color;
-  border-bottom: 1px solid $border-color;
+  padding: 0.5rem;
+  border-right: var(--#{$prefix}border-width) var(--#{$prefix}border-style)
+    var(--#{$prefix}border-color);
+  border-bottom: var(--#{$prefix}border-width) var(--#{$prefix}border-style)
+    var(--#{$prefix}border-color);
   color: inherit;
   cursor: pointer;
 
@@ -101,3 +94,50 @@ $demo-icon-size: 7rem;
   }
 }
 
+//
+// Settings
+//
+.settings-btn {
+  position: fixed;
+  right: -1px;
+  top: 10rem;
+
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  box-shadow: $box-shadow;
+}
+
+.settings-scheme {
+  display: inline-block;
+  border-radius: 50%;
+  height: 3rem;
+  width: 3rem;
+  position: relative;
+  border: var(--#{$prefix}border-width) var(--#{$prefix}border-style)
+    var(--#{$prefix}border-color);
+  box-shadow: $box-shadow;
+
+  &-light {
+    background: linear-gradient(135deg, $white 50%, $light 50%);
+  }
+
+  &-mixed {
+    background-image: linear-gradient(135deg, $dark 50%, #fff 50%);
+  }
+
+  &-transparent {
+    background: $light;
+  }
+
+  &-dark {
+    background: $dark;
+  }
+  
+  &-colored {
+    background-image: linear-gradient(
+      135deg,
+      var(--#{$prefix}primary) 50%,
+      $light 50%
+    );
+  }
+}

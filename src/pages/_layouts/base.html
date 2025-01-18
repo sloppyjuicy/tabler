@@ -3,10 +3,6 @@
 {% assign title = page.title | default: layout.title %}
 <html lang="en"{% if page.rtl or site.rtl %} dir="rtl" {% endif %}>
 <head>
-	{% if jekyll.environment == 'preview' %}
-		{% include layout/analytics.html %}
-	{% endif %}
-
 	<meta charset="utf-8"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
 	<meta http-equiv="X-UA-Compatible" content="ie=edge"/>
@@ -14,12 +10,10 @@
 	<title>{% if title %}{{ title }} - {% endif %}{% if site.title %}{{ site.title }} - {% endif %}{{ site.description }}</title>
 
 	{% if jekyll.environment == 'preview' %}
-		<link rel="preconnect" href="https://www.google-analytics.com" crossorigin>
-		<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
-		<link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
+		{% include layout/analytics.html %}
 
-		<meta name="msapplication-TileColor" content="{{ site.data.colors.blue }}"/>
-		<meta name="theme-color" content="{{ site.data.colors.blue }}"/>
+		<meta name="msapplication-TileColor" content="{{ site.theme-color }}"/>
+		<meta name="theme-color" content="{{ site.theme-color }}"/>
 
 		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
 		<meta name="apple-mobile-web-app-capable" content="yes"/>
@@ -36,18 +30,19 @@
 	{% endif %}
 
 	{% include layout/css.html %}
+
+	<style>
+		@import url('https://rsms.me/inter/inter.css');
+	</style>
 </head>
 
 {% assign layout-dark = page.layout-dark | default: site.layout-dark %}
-<body class="{% if layout-dark %} theme-dark{% endif %}{% if layout.body-class %} {{ layout.body-class }}{% endif %}{% if page.body-class %} {{ page.body-class }}{% endif %}">
+<body{% if layout.body-class or page.body-class %} class="{% if layout.body-class %} {{ layout.body-class }}{% endif %}{% if page.body-class %} {{ page.body-class }}{% endif %}"{% endif %}>
+<script src="{{ site.base }}/dist/js/demo-theme{% if jekyll.environment != 'development' %}.min{% endif %}.js{% if jekyll.environment != 'development' %}?{{ site.time | date: '%s' }}{% endif %}"></script>
 
 	{{ content }}
 
 	{% include layout/modals-capture.html %}
-
-	{% if jekyll.environment == 'preview' %}
-		{% include layout/sentry.html %}
-	{% endif %}
 
 	{% include layout/js.html %}
 

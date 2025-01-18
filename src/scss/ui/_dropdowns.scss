@@ -1,7 +1,6 @@
 .dropdown-menu {
-  box-shadow: $box-shadow;
   user-select: none;
-  margin: 0 !important;
+  background-clip: border-box;
 
   &.card {
     padding: 0;
@@ -26,8 +25,8 @@
   width: $icon-size !important;
   height: $icon-size !important;
   margin-right: .5rem;
-  color: $text-muted;
-  opacity: $text-muted-opacity;
+  color: var(--#{$prefix}secondary);
+  opacity: $text-secondary-opacity;
   text-align: center;
 }
 
@@ -63,10 +62,10 @@
 
 .dropdown-menu-columns {
   display: flex;
+  flex: 0 .25rem;
 }
 
 .dropdown-menu-arrow {
-  //margin-top: .25rem;
 
   &:before {
     content: "";
@@ -77,6 +76,7 @@
     background: inherit;
     width: 14px;
     height: 14px;
+    /*rtl:ignore*/
     transform: rotate(45deg);
     transform-origin: center;
     border: 1px solid;
@@ -115,3 +115,4 @@
     box-shadow: none;
   }
 }
+

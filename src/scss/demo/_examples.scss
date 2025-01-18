@@ -1,7 +1,7 @@
 .example {
   padding: 2rem;
   margin: 1rem 0 2rem;
-  border: 1px solid $border-color;
+  border: var(--#{$prefix}border-width) var(--#{$prefix}border-style) var(--#{$prefix}border-color);
   border-radius: 3px 3px 0 0;
   position: relative;
 
@@ -22,7 +22,7 @@
 .example-content {
   font-size: $font-size-base;
   line-height: $line-height-base;
-  color: $body-color;
+  color: var(--#{$prefix}body-color);
   flex: 1;
   max-width: 100%;
 
@@ -37,7 +37,7 @@
 
 .example-code {
   margin: 2rem 0;
-  border: 1px solid $border-color;
+  border: var(--#{$prefix}border-width) var(--#{$prefix}border-style) var(--#{$prefix}border-color);
   border-top: none;
 
   pre {
@@ -76,11 +76,4 @@
   top: 0;
   height: 100%;
   border-radius: 2px 2px 0 0;
-}
-
-@include dark-mode {
-  .example-code {
-    border: 1px solid $border-color;
-    border-top: none;
-  }
 }

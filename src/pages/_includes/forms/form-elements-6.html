@@ -23,27 +23,27 @@
 	<label class="form-label">Form buttons</label>
 	<div class="row">
 		<div class="col">
-			{% include ui/button.html color="white" block=true icon="brand-github" icon-color="github" text="Login with Github" %}
+			{% include ui/button.html  block=true icon="brand-github" icon-color="github" text="Login with Github" %}
 		</div>
 		<div class="col">
-			{% include ui/button.html color="white" block=true icon="brand-twitter" icon-color="twitter" text="Login with Twitter" %}
+			{% include ui/button.html  block=true icon="brand-x" icon-color="x" text="Login with X" %}
 		</div>
 	</div>
 </div>
 
 <div class="mb-3">
 	<label class="form-label">Tags input</label>
-	{% include ui/select.html key="tags" %}
-</div>
-
-<div class="mb-3">
-	<label class="form-label">Advanced tags input</label>
-	{% include ui/select.html key="tags-advanced" %}
+	{% include ui/select.html key="tags" placeholder="Select tags" %}
 </div>
 
 <div class="mb-3">
 	<label class="form-label">Advanced select</label>
 	{% include ui/select.html key="users" %}
+</div>
+
+<div class="mb-3">
+	 <label class="form-label">Advanced select with optgroup</label>
+	 {% include ui/select.html key="optgroups" %}
 </div>
 
 <div class="mb-3">

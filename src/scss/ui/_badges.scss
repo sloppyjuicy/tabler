@@ -1,31 +1,17 @@
 .badge {
-  display: inline-flex;
   justify-content: center;
   align-items: center;
-  background: $gray-500;
+  background: $badge-bg-color;
   overflow: hidden;
   user-select: none;
-  padding: calc(.25rem - 1px) .25rem;
-  height: 1.25rem;
-  border: 1px solid transparent;
-  min-width: 1.25rem;
+  border: var(--#{$prefix}border-width) var(--#{$prefix}border-style) transparent;
+  min-width: ($badge-padding-y * 2 ) + (divide($badge-font-size, 100%) * 1em);
   font-weight: $headings-font-weight;
-  font-size: $h6-font-size;
   letter-spacing: .04em;
-  text-transform: uppercase;
+  vertical-align: bottom;
 
   @at-root a#{&} {
-    color: $white;
-  }
-
-  &:empty {
-    display: inline-block;
-    width: $badge-empty-size;
-    height: $badge-empty-size;
-    min-width: 0;
-    min-height: auto;
-    padding: 0;
-    border-radius: $border-radius-pill;
+    color: $card-bg;
   }
 
   .avatar {
@@ -39,17 +25,55 @@
     width: 1em;
     height: 1em;
     font-size: 1rem;
-    margin: 0 .25rem 0 0;
+    stroke-width: 2;
   }
 }
 
-// bordered
-.badge-outline {
-  background-color: transparent;
-  border: 1px solid currentColor;
+ .badge:empty,
+ .badge-empty {
+  display: inline-block;
+  width: $badge-empty-size;
+  height: $badge-empty-size;
+  min-width: 0;
+  min-height: auto;
+  padding: 0;
+  border-radius: $border-radius-pill;
+  vertical-align: baseline;
 }
 
+//
+// Outline badge
+//
+.badge-outline {
+  background-color: transparent;
+  border: var(--#{$prefix}border-width) var(--#{$prefix}border-style) currentColor;
+}
+
+//
+// Pill badge
+//
 .badge-pill {
-  border-radius: 100px;
-  min-width: 1.75em;
+  border-radius: $border-radius-pill;
+}
+
+//
+// Badges list
+//
+.badges-list {
+  @include elements-list;
+}
+
+//
+// Notification badge
+//
+.badge-notification {
+  position: absolute !important;
+  top: 0 !important;
+  right: 0 !important;
+  transform: translate(50%, -50%);
+  z-index: 1;
+}
+
+.badge-blink {
+  animation: blink 2s infinite;
 }

@@ -1,100 +1,62 @@
+@use "sass:color";
+
+//
+// Button
+//
 .btn {
+  --#{$prefix}btn-icon-size: #{$input-btn-icon-size};
+  --#{$prefix}btn-bg: var(--#{$prefix}bg-surface);
+  --#{$prefix}btn-color: var(--#{$prefix}body-color);
+  --#{$prefix}btn-border-color: #{$btn-border-color};
+  --#{$prefix}btn-hover-bg: var(--#{$prefix}btn-bg);
+  --#{$prefix}btn-hover-border-color: var(--#{$prefix}border-active-color);
+  --#{$prefix}btn-box-shadow: var(--#{$prefix}box-shadow-input);
+  --#{$prefix}btn-active-color: #{$active-color};
+  --#{$prefix}btn-active-bg: #{$active-bg};
+  --#{$prefix}btn-active-border-color: #{$active-border-color};
+
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  color: $body-color;
-  background-color: $white;
-  border-color: $border-color-dark-transparent;
   white-space: nowrap;
-
-  &:hover {
-    color: $body-color;
-    border-color: $text-muted-light;
-    background-color: $light;
-  }
-
-  &:focus {
-    border-color: rgba(var(--#{$variable-prefix}btn-color, hex-to-rgb($primary)), .5);
-    box-shadow: 0 0 0 $input-btn-focus-width rgba(var(--#{$variable-prefix}btn-color, hex-to-rgb($primary)), $input-btn-focus-color-opacity)
-  }
-
-  &:disabled,
-  &.disabled {
-    cursor: not-allowed;
-  }
+  box-shadow: var(--#{$prefix}btn-box-shadow);
 
   .icon {
-    width: $icon-size;
-    height: $icon-size;
-    min-width: $icon-size;
-    margin: 0 .5rem 0 -.25rem;
+    width: var(--#{$prefix}btn-icon-size);
+    height: var(--#{$prefix}btn-icon-size);
+    min-width: var(--#{$prefix}btn-icon-size);
+    font-size: var(--#{$prefix}btn-icon-size);
+    margin: 0 calc(var(--#{$prefix}btn-padding-x) / 2) 0 calc(var(--#{$prefix}btn-padding-x) / -4);
     vertical-align: bottom;
-    color: $text-muted;
+    color: inherit;
   }
 
   .avatar {
-    width: 1.25rem;
-    height: 1.25rem;
-    vertical-align: text-top;
-    margin: 0 .5rem 0 -.25rem;
+    width: var(--#{$prefix}btn-icon-size);
+    height: var(--#{$prefix}btn-icon-size);
+    margin: 0 calc(var(--#{$prefix}btn-padding-x) / 2) 0 calc(var(--#{$prefix}btn-padding-x) / -4);
   }
 
   .icon-right {
-    margin: 0 -.25rem 0 .5rem;
+    margin: 0 calc(var(--#{$prefix}btn-padding-x) / -4) 0 calc(var(--#{$prefix}btn-padding-x) / 2);
   }
 
   .badge {
     top: auto;
   }
-}
 
-%btn-color {
-  background-color: rgba(var(--#{$variable-prefix}btn-color), 1);
-  color: var(--#{$variable-prefix}btn-color-text);
-
-  .icon {
-    color: inherit;
-  }
-
-  &:hover {
-    color: var(--#{$variable-prefix}btn-color-text);
-    background: rgba(var(--#{$variable-prefix}btn-color-darker), 1);
-    border-color: transparent;
-  }
-}
-
-%btn-outline {
-  background-color: transparent;
-  color: rgba(var(--#{$variable-prefix}btn-color), 1);
-  border-color: $border-color-transparent;
-
-  .icon {
-    color: inherit;
-  }
-
-  &:hover {
-    background-color: rgba(var(--#{$variable-prefix}btn-color), 1);
-    color: var(--#{$variable-prefix}btn-color-text);
-    border-color: rgba(var(--#{$variable-prefix}btn-color), 1);
-  }
-}
-
-%btn-ghost {
-  background: transparent;
-  color: rgba(var(--#{$variable-prefix}btn-color), 1);
-  border-color: transparent;
-
-  &:hover {
-    background-color: rgba(var(--#{$variable-prefix}btn-color), 1);
-    color: var(--#{$variable-prefix}btn-color-text);
-    border-color: rgba(var(--#{$variable-prefix}btn-color), 1);
+  .btn-check + &:hover {
+    color: var(--#{$prefix}btn-hover-color);
+    background-color: var(--#{$prefix}btn-hover-bg);
+    border-color: var(--#{$prefix}btn-hover-border-color);
   }
 }
 
 .btn-link {
-  color: $link-color;
+  color: #{color.adjust($primary, $lightness: 5%)};
   background-color: transparent;
   border-color: transparent;
+  box-shadow: none;
 
   .icon {
     color: inherit;
@@ -106,12 +68,82 @@
   }
 }
 
-.btn-lg {
-  svg.icon {
-    stroke-width: 2;
+//
+// Button color variations
+//
+@each $color, $value in $theme-colors {
+  .btn-#{$color} {
+    @if $color == 'dark' {
+      --#{$prefix}btn-border-color: var(--#{$prefix}dark-mode-border-color);
+      --#{$prefix}btn-hover-border-color: var(--#{$prefix}dark-mode-border-active-color);
+      --#{$prefix}btn-active-border-color: var(--#{$prefix}dark-mode-border-active-color);
+    } @else {
+      --#{$prefix}btn-border-color: transparent;
+      --#{$prefix}btn-hover-border-color: transparent;
+      --#{$prefix}btn-active-border-color: transparent;
+    }
+
+    --#{$prefix}btn-color: var(--#{$prefix}#{$color}-fg);
+    --#{$prefix}btn-bg: var(--#{$prefix}#{$color});
+    --#{$prefix}btn-hover-color: var(--#{$prefix}#{$color}-fg);
+    --#{$prefix}btn-hover-bg: var(--#{$prefix}#{$color}-darken);
+    --#{$prefix}btn-active-color: var(--#{$prefix}#{$color}-fg);
+    --#{$prefix}btn-active-bg: var(--#{$prefix}#{$color}-darken);
+    --#{$prefix}btn-disabled-bg: var(--#{$prefix}#{$color});
+    --#{$prefix}btn-disabled-color: var(--#{$prefix}#{$color}-fg);
+    --#{$prefix}btn-box-shadow: var(--#{$prefix}box-shadow-input);
+  }
+
+  .btn-outline-#{$color} {
+    --#{$prefix}btn-color: var(--#{$prefix}#{$color});
+    --#{$prefix}btn-bg: transparent;
+    --#{$prefix}btn-border-color: var(--#{$prefix}#{$color});
+    --#{$prefix}btn-hover-color: var(--#{$prefix}#{$color}-fg);
+    --#{$prefix}btn-hover-border-color: transparent;
+    --#{$prefix}btn-hover-bg: var(--#{$prefix}#{$color});
+    --#{$prefix}btn-active-color: var(--#{$prefix}#{$color}-fg);
+    --#{$prefix}btn-active-bg: var(--#{$prefix}#{$color});
+    --#{$prefix}btn-disabled-color: var(--#{$prefix}#{$color});
+    --#{$prefix}btn-disabled-border-color: var(--#{$prefix}#{$color});
   }
 }
 
+@each $name, $color in $theme-colors {
+  .btn-ghost-#{$name} {
+    --#{$prefix}btn-color: var(--#{$prefix}#{$name});
+    --#{$prefix}btn-bg: transparent;
+    --#{$prefix}btn-border-color: transparent;
+    --#{$prefix}btn-hover-color: var(--#{$prefix}#{$name}-fg);
+    --#{$prefix}btn-hover-bg: var(--#{$prefix}#{$name});
+    --#{$prefix}btn-hover-border-color: var(--#{$prefix}#{$name});
+    --#{$prefix}btn-active-color: var(--#{$prefix}#{$name}-fg);
+    --#{$prefix}btn-active-bg: var(--#{$prefix}#{$name});
+    --#{$prefix}btn-active-border-color: transparent;
+    --#{$prefix}btn-active-shadow: #{$btn-active-box-shadow};
+    --#{$prefix}btn-disabled-color: var(--#{$prefix}#{$name});
+    --#{$prefix}btn-disabled-bg: transparent;
+    --#{$prefix}btn-disabled-border-color: transparent;
+    --#{$prefix}gradient: none;
+    --#{$prefix}btn-box-shadow: none;
+  }
+}
+
+//
+// Button sizes
+//
+.btn-sm, .btn-group-sm > .btn {
+  --#{$prefix}btn-line-height: #{$input-btn-line-height-sm};
+  --#{$prefix}btn-icon-size: #{$input-btn-icon-size-sm};
+}
+
+.btn-lg, .btn-group-lg > .btn {
+  --#{$prefix}btn-line-height: #{$input-btn-line-height-lg};
+  --#{$prefix}btn-icon-size: #{$input-btn-icon-size-lg};
+}
+
+//
+// Button shapes
+//
 .btn-pill {
   padding-right: 1.5em;
   padding-left: 1.5em;
@@ -122,33 +154,34 @@
   }
 }
 
-.btn-icon {
-  min-width: add($btn-line-height * $btn-font-size + $btn-padding-y * 2, $btn-border-width * 2);
-
-  &.btn-sm {
-    min-width: add($btn-line-height * $btn-font-size-sm + $btn-padding-y-sm * 2, $btn-border-width * 2);
-  }
-
-  .icon {
-    margin: 0 -1em;
-  }
-}
-
 .btn-square {
   border-radius: 0;
 }
 
-.btn-list {
-  display: flex;
-  flex-wrap: wrap;
-  margin-bottom: -.5rem !important;
-  margin-right: -.5rem;
+//
+// Icon button
+//
+.btn-icon {
+  min-width: calc((var(--#{$prefix}btn-line-height) * var(--#{$prefix}btn-font-size)) + (var(--#{$prefix}btn-padding-y) * 2) + (var(--#{$prefix}btn-border-width) * 2));
+  min-height: calc((var(--#{$prefix}btn-line-height) * var(--#{$prefix}btn-font-size)) + (var(--#{$prefix}btn-padding-y) * 2) + (var(--#{$prefix}btn-border-width) * 2));
+  padding-left: 0;
+  padding-right: 0;
 
-  > * {
-    margin: 0 .5rem .5rem 0 !important;
+  .icon {
+    margin: calc(-1 * var(--#{$prefix}btn-padding-x));
   }
 }
 
+//
+// Button list
+//
+.btn-list {
+  @include elements-list;
+}
+
+//
+// Button floating
+//
 .btn-floating {
   position: fixed;
   z-index: $zindex-fixed;
@@ -157,58 +190,79 @@
   border-radius: $border-radius-pill;
 }
 
+//
+// Button loading
+//
 .btn-loading {
   position: relative;
   color: transparent !important;
   text-shadow: none !important;
   pointer-events: none;
 
+  > * {
+    opacity: 0;
+  }
+
   &:after {
-    content: '';
+    content: "";
     display: inline-block;
     vertical-align: text-bottom;
-    border: $spinner-border-width-sm solid currentColor;
+    border: $spinner-border-width var(--#{$prefix}border-style) currentColor;
     border-right-color: transparent;
     border-radius: $border-radius-pill;
-    color: $white;
+    color: var(--#{$prefix}btn-color);
     position: absolute;
-    width: 1rem;
-    height: 1rem;
-    left: calc(50% - .5rem);
-    top: calc(50% - .5rem);
+    width: var(--#{$prefix}btn-icon-size);
+    height: var(--#{$prefix}btn-icon-size);
+    left: calc(50% - var(--#{$prefix}btn-icon-size) / 2);
+    top: calc(50% - var(--#{$prefix}btn-icon-size) / 2);
     animation: spinner-border .75s linear infinite;
   }
 }
 
+//
+// Action button
+//
+.btn-action {
+  padding: 0;
+  border: 0;
+  color: var(--#{$prefix}secondary);
+  display: inline-flex;
+  width: 2rem;
+  height: 2rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--#{$prefix}border-radius);
+  background: transparent;
 
-$btn-colors: $theme-colors;
+  &:after {
+    content: none;
+  }
 
-@if $enable-extra-colors {
-  $btn-colors: map-merge($btn-colors, $extra-colors);
+  &:focus {
+    outline: none;
+    box-shadow: none;
+  }
+
+  &:hover,
+  &.show {
+    color: var(--#{$prefix}body-color);
+    background: var(--#{$prefix}active-bg);
+  }
+
+  &.show {
+    color: var(--#{$prefix}primary);
+  }
+
+  .icon {
+    margin: 0;
+    width: 1.25rem;
+    height: 1.25rem;
+    font-size: 1.25rem;
+    stroke-width: 1;
+  }
 }
 
-@if $enable-social-colors {
-  $btn-colors: map-merge($btn-colors, $social-colors);
-}
-
-@each $name, $color in $btn-colors {
-  .btn-#{$name},
-  .btn-outline-#{$name},
-  .btn-ghost-#{$name} {
-    --#{$variable-prefix}btn-color: #{hex-to-rgb($color)};
-    --#{$variable-prefix}btn-color-darker: #{hex-to-rgb(theme-color-darker($color))};
-    --#{$variable-prefix}btn-color-text: #{color-contrast($color)};
-  }
-
-  .btn-#{$name} {
-    @extend %btn-color;
-  }
-
-  .btn-outline-#{$name} {
-    @extend %btn-outline;
-  }
-
-  .btn-ghost-#{$name} {
-    @extend %btn-ghost;
-  }
+.btn-actions {
+  display: flex;
 }

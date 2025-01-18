@@ -91,13 +91,13 @@ module Jekyll
       object
     end
 
-    def tabler_color(color, variation = false)
-      if variation
-        color = color + '-' + variation
-      end
-
-      Jekyll.sites.first.data['colors'][color]
-    end
+    # def tabler_color(color, variation = false)
+    #   if variation
+    #     color = color + '-' + variation.to_s
+    #   end
+    #
+    #   Jekyll.sites.first.data['colors'][color]
+    # end
 
     def seconds_to_minutes(seconds)
       seconds = seconds.to_i.round
@@ -118,6 +118,14 @@ module Jekyll
 
     def htmlbeautifier(output)
       HtmlBeautifier.beautify output
+    end
+
+    def hex_to_rgb(hex)
+      hex.match(/^#(..)(..)(..)$/).captures.map(&:hex)
+    end
+
+    def split_to_n(a, n)
+      a.each_slice( (a.size/n.to_f).round ).to_a
     end
   end
 end

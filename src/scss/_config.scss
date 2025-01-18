@@ -1,8 +1,9 @@
-@import "~bootstrap/scss/functions";
+@import "bootstrap/scss/functions";
 
 @import "variables";
+@import "variables-dark";
 @import "utilities";
 @import "mixins";
 
 @import "bootstrap-config";
-@import "mixins-override";
+@import "bootstrap-override";

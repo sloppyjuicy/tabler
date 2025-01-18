@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   position: relative;
-  min-height: 100vh;
+  min-height: 100%;
 }
 
 .page-center {
@@ -28,14 +28,17 @@
 
 // Content body
 .page-body {
-  margin-top: $content-padding-y;
-  margin-bottom: $content-padding-y;
+  margin-top: var(--#{$prefix}page-padding-y);
+  margin-bottom: var(--#{$prefix}page-padding-y);
+  display: flex;
+  flex-direction: column;
+  flex: 1;
 }
 
 .page-body-card {
-  background: $card-bg;
-  border-top: 1px solid $card-border-color;
-  padding: $content-padding-y 0;
+  background: var(--#{$prefix}bg-surface);
+  border-top: var(--#{$prefix}border-width) var(--#{$prefix}border-style) $card-border-color;
+  padding: var(--#{$prefix}page-padding) 0;
   margin-bottom: 0;
   flex: 1;
 
@@ -61,7 +64,7 @@
   position: relative;
 
   &:after {
-    content: '';
+    content: "";
     position: absolute;
     top: 0;
     left: 0;
@@ -80,13 +83,15 @@
   justify-content: center;
 
   .page-wrapper & {
-    margin: $content-padding-y 0 0;
+    margin: var(--#{$prefix}page-padding-y) 0 0;
   }
 }
 
 .page-header-border {
-  border-bottom: 1px solid $border-color-transparent;
-  padding-bottom: $content-padding-y;
+  border-bottom: var(--#{$prefix}border-width) var(--#{$prefix}border-style) var(--#{$prefix}border-color);
+  padding: var(--#{$prefix}page-padding-y) 0;
+  margin: 0 !important;
+  background-color: var(--#{$prefix}bg-surface);
 }
 
 .page-pretitle {
@@ -95,9 +100,9 @@
 
 .page-title {
   margin: 0;
-  font-size: $h2-font-size;
-  line-height: $h2-line-height;
-  font-weight: $font-weight-medium;
+  font-size: $page-title-font-size;
+  line-height: $page-title-line-height;
+  font-weight: $page-title-font-weight;
   color: inherit;
   display: flex;
   align-items: center;
@@ -116,7 +121,33 @@
 
 .page-subtitle {
   margin-top: .25rem;
-  color: $text-muted;
+  color: var(--#{$prefix}secondary);
+}
+
+//
+// Page cover
+//
+.page-cover {
+  --#{$prefix}page-cover-blur: 20px;
+  --#{$prefix}page-cover-padding: 1rem;
+  min-height: 6rem;
+  padding: var(--#{$prefix}page-cover-padding) 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.page-cover-img {
+  position: absolute;
+  top: calc(-2 * var(--#{$prefix}page-cover-blur, 0));
+  left: calc(-2 * var(--#{$prefix}page-cover-blur, 0));
+  right: calc(-2 * var(--#{$prefix}page-cover-blur, 0));
+  bottom: calc(-2 * var(--#{$prefix}page-cover-blur, 0));
+  pointer-events: none;
+  filter: blur(var(--#{$prefix}page-cover-blur));
+  object-fit: cover;
+  background-size: cover;
+  background-position: center;
+  z-index: -1;
 }
 
 //

@@ -18,16 +18,16 @@ Image check
   display: block;
   margin: 0;
   user-select: none;
-  border: 1px solid $border-color;
+  border: var(--#{$prefix}border-width) var(--#{$prefix}border-style) var(--#{$prefix}border-color);
   border-radius: 3px;
 
   .form-imagecheck-input:focus ~ & {
-    border-color: $primary;
+    border-color: var(--#{$prefix}primary);
     box-shadow: $input-btn-focus-box-shadow;
   }
 
   .form-imagecheck-input:checked ~ & {
-    border-color: $border-color;
+    border-color: var(--#{$prefix}primary);
   }
 
   &:before {
@@ -42,9 +42,9 @@ Image check
     pointer-events: none;
     content: "";
     user-select: none;
-    background: $white;
-    border: 1px solid $border-color;
-    border-radius: 3px;
+    background: $form-check-input-bg;
+    border: var(--#{$prefix}border-width) var(--#{$prefix}border-style) var(--#{$prefix}border-color);
+    border-radius: $form-check-input-border-radius;
     @include transition(opacity $transition-time);
 
     .form-imagecheck-input:checked ~ & {
@@ -54,6 +54,14 @@ Image check
       background-position: center;
       background-size: $form-check-input-checked-bg-size;
       border-color: $form-check-input-checked-border-color;
+    }
+
+    .form-imagecheck-input[type="radio"] ~ & {
+      border-radius: $form-check-radio-border-radius;
+    }
+
+    .form-imagecheck-input[type="radio"]:checked ~ & {
+      background-image: escape-svg($form-check-radio-checked-bg-image);
     }
   }
 }
@@ -84,13 +92,13 @@ Image check
 .form-imagecheck-caption {
   padding: .25rem;
   font-size: $font-size-sm;
-  color: $text-muted;
+  color: var(--#{$prefix}secondary);
   text-align: center;
   @include transition(color $transition-time);
 
   .form-imagecheck:hover &,
   .form-imagecheck-input:focus ~ .form-imagecheck-figure &,
   .form-imagecheck-input:checked ~ .form-imagecheck-figure & {
-    color: $body-color;
+    color: var(--#{$prefix}body-color);
   }
 }

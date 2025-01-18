@@ -1,6 +1,7 @@
 {% removeemptylines %}
 
 {% assign icon-name = include.icon %}
+{% assign type = include.type | default: "outline" %}
 
 {% assign replace-to = "icon" %}
 
@@ -10,10 +11,6 @@
 
 {% if include.color %}
 {% assign replace-to = replace-to | append: ' text-' | append: include.color %}
-{% endif %}
-
-{% if include.filled %}
-{% assign replace-to = replace-to | append: ' icon-filled' %}
 {% endif %}
 
 {% if include.inline %}
@@ -27,10 +24,10 @@
 {% assign replace-to = 'class="' | append: replace-to | append: '"' %}
 
 {% if site.use-iconfont %}
-	<i class="icon ti ti-{{ icon-name }}{% if include.color %} {{ include.color }}{% endif %}{% if include.filled %} icon-filled{% endif %}{% if include.class %} {{ include.class }}{% endif %}"></i>
+	<i class="icon ti ti-{{ icon-name }}{% if include.color %} {{ include.color }}{% endif %}{% if include.class %} {{ include.class }}{% endif %}"></i>
 {% else %}
-	<!-- Download SVG icon from http://tabler-icons.io/i/{{ icon-name }} -->
-	{% assign svg-icon = site.data.icons[icon-name] | default: '' %}
+	<!-- Download SVG icon from http://tabler.io/icons/icon/{{ icon-name }} -->
+	{% assign svg-icon = site.data.icons[icon-name].svg[type] | default: '' %}
 	{{ svg-icon | replace_regex: 'class=\"[^"]+\"', replace-to }}
 {% endif %}
 

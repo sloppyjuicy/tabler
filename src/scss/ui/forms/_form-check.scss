@@ -5,14 +5,27 @@ Form check
   user-select: none;
 
   &.form-check-highlight .form-check-input:not(:checked) ~ .form-check-label {
-    opacity: $text-muted-opacity;
+    color: var(--#{$prefix}secondary);
+  }
+
+  .form-check-label-off {
+    color: var(--#{$prefix}secondary);
+  }
+
+  .form-check-input:checked ~ .form-check-label-off {
+    display: none;
+  }
+
+  .form-check-input:not(:checked) ~ .form-check-label-on {
+    display: none;
   }
 }
 
 .form-check-input {
   background-size: $form-check-input-width;
   margin-top: ($form-check-min-height - $form-check-input-width) * .5;
-
+  box-shadow: $form-check-input-box-shadow;
+  
   .form-switch & {
     @include transition(background-color$transition-time, background-position $transition-time);
   }
@@ -32,7 +45,7 @@ Form check
 
 .form-check-description {
   display: block;
-  color: $text-muted;
+  color: var(--#{$prefix}secondary);
   font-size: $h5-font-size;
   margin-top: .25rem;
 }
@@ -57,9 +70,22 @@ Form switch
 }
 
 .form-switch-lg {
+  padding-left: 3.5rem;
+  min-height: 1.5rem;
+
   .form-check-input {
     height: 1.5rem;
     width: 2.75rem;
     background-size: 1.5rem;
+    margin-left: -3.5rem;
   }
+
+  .form-check-label {
+    padding-top: .125rem;
+  }
+}
+
+/*Correction of Form-check position*/
+.form-check-input:checked{
+  border: none;
 }

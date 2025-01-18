@@ -19,9 +19,8 @@ Hr text
   &:after,
   &:before {
     flex: 1 1 auto;
-    height: $hr-height;
-    background-color: currentColor;
-    opacity: $hr-opacity;
+    height: 1px;
+    background-color: var(--#{$prefix}border-color);
   }
 
   &:before {
@@ -37,10 +36,11 @@ Hr text
   > *:first-child {
     padding-right: .5rem;
     padding-left: 0;
-    color: $text-muted;
+    color: var(--#{$prefix}secondary);
   }
 
-  &.hr-text-left {
+  &.hr-text-left,
+  &.hr-text-start {
     &:before {
       content: none;
     }
@@ -51,7 +51,8 @@ Hr text
     }
   }
 
-  &.hr-text-right {
+  &.hr-text-right,
+  &.hr-text-end {
     &:before {
       content: "";
     }
